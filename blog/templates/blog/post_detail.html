@@ -1,0 +1,24 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+    <article class="box">
+        <h1><a href="{% url 'blog:post_detail' post.pk %}">{{ post.title }}</a></h1>
+        <p>投稿者: {{ post.writer }}</p>
+        <p>作成日: {{ post.created_at }}</p>
+        <p>更新日: {{ post.updated_at }}</p>
+        <p>カテゴリ: {{ post.category }}</p>
+        <p>タグ: {% for tag in post.tags.all %}{{ tag }},{% endfor %}</p>
+        <hr>
+        <div>
+            {{ post.text | safe | linebreaks | urlize }}
+        </div>
+    </article>
+
+    <a class="button is-primary" href="{% url 'blog:comment_create' post.pk %} ">コメントする</a>
+    <hr>
+        {% for comment in post.comment_set.all %}
+            <div class="comment">
+                <strong>{{ comment.name }}</strong> {{ comment.created_at }}<br>
+                <p>{{ comment.text | linebreaks | urlize}}</p>
+            </div>
+        {% endfor %}
+{% endblock %}

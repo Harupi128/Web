@@ -1,0 +1,9 @@
+{% extends 'reviews/base.html' %}
+
+{% block content %}
+    <article>
+        <hl>{{ review.store_name }}</hl>
+        <p>{{ reviews.get_star_display }} - {{ review.title }}</p>
+        {{ review.text | linebreaks }}
+    </article>
+{% endblock %}
